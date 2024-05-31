@@ -15,6 +15,7 @@ class Product(models.Model):
     image = models.FileField(upload_to = 'products/')
     cost = models.IntegerField()
     hajm = models.IntegerField()
+    admin = models.ForeignKey(Admin, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -30,6 +31,37 @@ class User(models.Model):
     def __str__(self):
         return self.username
 
+
+# class Order(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+#     date = models.DateField(auto_now=True)
+#     os = (
+#         ('ochiq', 'ochiq')
+#         ('yetkazilgan', 'yetgazilgan')
+#     ) 
+#     status =models.CharField(max_length=20, choices=os)
+#     paymet = models.CharField(max_length=25)
+
+#     def __str__(self):
+#         return str(self.date)
+    
+
+
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    date = models.DateField(auto_now=True)
+    os = [
+        ["ochiq", 'ochiq'],
+        ['yetkazilgan', 'yetkazilgan']
+    ]
+    status = models.CharField(max_length=20, choices=os)
+    payment = models.CharField(max_length=25) # card raqam
+    quantity = models.IntegerField
+
+    def __str__(self):
+        return str(self.date)
 
 
 
